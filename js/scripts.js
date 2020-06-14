@@ -257,8 +257,8 @@ function siLogin() {
                                      <li>Genero: ` + genero + `</li>
                                      <li>ID: ` + id + `</li>
                                    </ul>
-                                   <button id="`+id+`like" onclick="botonLike()" class="like btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
-                                   <button id="`+id+`ver" onclick="botonVer()" class="ver btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
+                                   <button id="`+id+`" onclick="botonLike(`+id+`)" class="like btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
+                                   <button id="`+id+`" onclick="botonVer(`+id+`)" class="ver btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
                                    <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
                                  </div>
                                </div>
@@ -289,8 +289,8 @@ function siLogin() {
                                 <li>Genero: ` + genero + `</li>
                                 <li>ID: ` + id + `</li>
                               </ul>
-                              <button id="`+id+`like" onclick="botonLike()" class="like btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
-                              <button id="`+id+`noVer" onclick="botonNoVer()" class="noVer btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
+                              <button id="`+id+`" onclick="botonLike(`+id+`)" class="like btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
+                              <button id="`+id+`" onclick="botonNoVer(`+id+`)" class="noVer btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
                               <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
                             </div>
                           </div>
@@ -321,8 +321,8 @@ function siLogin() {
                            <li>Genero: ` + genero + `</li>
                            <li>ID: ` + id + `</li>
                          </ul>
-                         <button id="`+id+`nolike" onclick="botonNoLike()" class="noLike btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
-                         <button id="`+id+`ver" onclick="botonVer()" class="ver btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
+                         <button id="`+id+`" onclick="botonNoLike(`+id+`)" class="noLike btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
+                         <button id="`+id+`" onclick="botonVer(`+id+`)" class="ver btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
                          <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
                        </div>
                      </div>
@@ -352,8 +352,8 @@ function siLogin() {
                            <li>Genero: ` + genero + `</li>
                            <li>ID: ` + id + `</li>
                          </ul>
-                         <button id="`+id+`nolike" onclick="botonNoLike()" class="noLike btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
-                         <button id="`+id+`noVer" onclick="botonNoVer()" class="noVer btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
+                         <button id="`+id+`" onclick="botonNoLike(`+id+`)" class="noLike btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
+                         <button id="`+id+`" onclick="botonNoVer(`+id+`)" class="noVer btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
                          <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
                        </div>
                      </div>
@@ -386,8 +386,8 @@ function siLogin() {
                      <li>Genero: ` + genero + `</li>
                      <li>ID: ` + id + `</li>
                    </ul>
-                   <button id="`+id+`nolike" onclick="botonNoLike()" class="noLike btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
-                   <button id="`+id+`noVer"  onclick="botonNoVer()" class="noVer btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
+                   <button id="`+id+`" onclick="botonNoLike(`+id+`)" class="noLike btn btn-primary" type="button"><i class="fa fa-heart"></i></button>
+                   <button id="`+id+`"  onclick="botonNoVer(`+id+`)" class="noVer btn btn-primary" type="button"><i class="fa fa-eye"></i></button>
                    <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fas fa-times mr-1"></i>Close Project</button>
                  </div>
                </div>
@@ -418,25 +418,23 @@ function siLogin() {
 }
 
 
-function botonNoVer(){
-  console.log(this);
-
+function botonNoVer(id){
+  console.log(id);
   console.log("no ver");
 
 }
 
-function botonNoLike(e){
-  console.log(e.target);
-  console.log("no like");
+function botonNoLike(id){
+  console.log(id);
 }
 
-function botonVer(e){
-  console.log(e.target);
+function botonVer(id){
+  console.log(id);
   console.log(" ver");
 }
 
-function botonLike(e){
-  console.log(e.target);
+function botonLike(id){
+  console.log(id);
   console.log("like");
 }
 
