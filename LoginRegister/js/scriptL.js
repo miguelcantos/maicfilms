@@ -87,7 +87,7 @@ function consultas(){
                   console.log(resultado);
 
                   if(resultado == "Inicio de sesion correcto"){
-                      location.replace("../index.html");
+                      location.replace("../index.php");
 
                   }else{
                     alert("No has iniciado sesion CORRECTAMENTE");
