@@ -43,11 +43,13 @@ function consultas(){
         console.log(boton);
 
         if (boton == "Registrate") {
+
           console.log("Opcion Registro");
           var nombre = $('#nombreUsu').val();
           var nombreUsu = $('#nomUsu').val();
           var password = $('#pass').val();
           var email = $('#email').val();
+          if( validateEmail(email)){
 
           $.ajax({
               type: 'POST',
@@ -62,6 +64,7 @@ function consultas(){
                   console.log(resultado.trim());
                   if(resultado.trim() == "Nuevo usuario creado correctamente"){
                     location.reload();
+                    alert("Te has registrado correctamente");
                   }else{
                     alert("No te has registrado correctamente");
                   }
@@ -70,7 +73,9 @@ function consultas(){
               }
 
           });
-
+        }else{
+          alert("El correo no es valido");
+        }
         } else {
           console.log("Opcion Iniciar Sesion");
           var nombreUsu = $('#nomUsu').val();
@@ -85,8 +90,9 @@ function consultas(){
               },
               success: function(resultado){
                   console.log(resultado.trim());
+                  var todo = resultado.trim();
+                  if(todo == "Inicio de sesion correcto"){
 
-                  if(resultado.trim() == "Inicio de sesion correcto"){
                       location.replace("../index.php");
 
                   }else{
@@ -102,6 +108,10 @@ function consultas(){
 
 };
 
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
 function init(){
 

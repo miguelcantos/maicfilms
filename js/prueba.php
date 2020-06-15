@@ -1,29 +1,21 @@
 <?php
 require_once '../LoginRegister/js/baseDatos.php';
-$idBuscar = 862;
+$pass = "12345";
 $numero = 1;
-$idusuario = 3;
+$nombreUsu = "jc";
 
-$sql1="SELECT * FROM valoraciones WHERE idUsu=$idusuario AND idPeli = $idBuscar";
-$result1 = mysqli_query($conn,$sql1);
+$sql = "SELECT idUsu, nombre, nomUsu, password FROM usuarios WHERE nomUsu = '$nombreUsu' and password='$pass'";
+$result = mysqli_query($conn,$sql);
 
 $i=0;
 $rawdata=[];
-$row = mysqli_fetch_array($result1);
+$row = mysqli_fetch_array($result);
 
-if($row == null){
-    $stmt = $conn->prepare("INSERT INTO valoraciones (idPeli, idUsu, fav) VALUES ( ?, ?, ?)");
-    $stmt -> bind_param('sss', $idBuscar, $idusuario, $numero );
-    $stmt -> execute();
-?>
-<script>
-    alert("Hemos creado tu valoracion");
-</script>
-<?php
+if($row != null){
+    echo "Sesion INICIADA";
 }else{
+  echo "sesion no iniciada";
 
-  $sql="Update valoraciones Set fav=$numero WHERE idUsu=$idusuario AND idPeli=$idBuscar";
-  $result = mysqli_query($conn,$sql);
-  echo $result;
 }
+
 ?>

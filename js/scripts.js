@@ -9,8 +9,24 @@ function init() {
   document.getElementById('search').addEventListener("click", buscar);
   document.getElementById('MeGusta').addEventListener("click", favoritos);
   cargarTendencias();
+  comprobarBotones();
+  console.log(getCookieValue("nombreCookie"));
 
+}
 
+function cookie(nombre) {
+
+  let corte = document.cookie.split(nombre + "=")[1];
+  let cookie;
+   if(corte !== undefined){
+
+     if(corte.indexOf(';') !== -1) {
+        cookie = corte.substring(0, corte.indexOf(';'));
+      }else{
+        cookie = corte.substring(0, corte.length);
+      }
+      return cookie;
+  }
 }
 
 function buscar() {
@@ -19,6 +35,7 @@ function buscar() {
     success: function(data) {
       if (data == "no") {
         noLogin();
+
       } else {
         siLogin();
       }
@@ -34,14 +51,16 @@ function favoritos() {
     success: function(data) {
       if (data == "no") {
         alert("Tienes que estar registrado");
+        comprobarBotones();
+
       } else {
         $.ajax({
           url: 'js/favoritos.php',
           success: function(data) {
-            console.log(JSON.parse(data));
+            //console.log(JSON.parse(data));
             var bd = JSON.parse(data);
             bd.forEach(peli => {
-              console.log("0",peli)
+              //console.log("0",peli)
               var urlPeli ="https://api.themoviedb.org/3/movie/"+peli.idPeli+"?api_key=44cf37b45eec4ba388f87fa29194c3e1&language=es-ES";
 
               var tituloDiv = document.getElementById("tituloDiv");
@@ -56,7 +75,7 @@ function favoritos() {
                 return response.json();
 
               }).then(pelicula => {
-                  console.log("1", pelicula)
+                  //console.log("1", pelicula)
                   var titulo = pelicula.original_title;
                   var img = peliImg + pelicula.poster_path;
                   var sinopsi = pelicula.overview;
@@ -94,7 +113,6 @@ function favoritos() {
                     });
 
                   }).then(() => {
-
 
                       divD.innerHTML += portafolio(id, titulo, img, sinopsi, actores, lanzamiento, genero);
 
@@ -135,9 +153,10 @@ function noLogin() {
       return response.json();
 
     }).then(respuesta => {
-      //console.log(respuesta);
+      console.log(respuesta);
 
       respuesta.results.forEach(pelicula => {
+        if(pelicula.poster_path != null){
 
         var titulo = pelicula.original_title;
         var img = peliImg + pelicula.poster_path;
@@ -222,13 +241,35 @@ function noLogin() {
         });
 
 
-
+      }
       });
 
     });
   }
 }
 
+function comprobarBotones() {
+  $.ajax({
+    url: 'js/comprobarCookie.php',
+    success: function(data) {
+      if (data == "no") {
+        console.log("no sesion iniciada");
+        document.getElementById('cerrarSesion').disabled = true;
+        document.getElementById('MeGusta').disabled = true;
+        document.getElementById('saludo').innerText = "MAICFILMS";
+
+      } else {
+        document.getElementById('iniciarSesion').disabled = true;
+        document.getElementById('cerrarSesion').disabled = false;
+        document.getElementById('MeGusta').disabled = false;
+        var nombre = cookie("nombreCookie");
+        document.getElementById('saludo').innerText = nombre;
+      }
+
+    }
+  });
+
+}
 //funcion de buscar cuando el usuario esta con la sesion iniciada
 
 function siLogin() {
@@ -256,7 +297,7 @@ function siLogin() {
       //console.log(respuesta);
 
       respuesta.results.forEach(pelicula => {
-
+        if(pelicula.poster_path != null){
         var titulo = pelicula.original_title;
         var img = peliImg + pelicula.poster_path;
         var sinopsi = pelicula.overview;
@@ -315,7 +356,7 @@ function siLogin() {
           })
 
         });
-
+      }
       });
 
     });
@@ -605,7 +646,7 @@ function cargarTendencias() {
             });
 
 
-
+/////////////////////////////
           });
 
         });
@@ -636,7 +677,7 @@ function cargarTendencias() {
             var votacion = pelicula.vote_average;
             var id = pelicula.id;
             var divCuadrados = document.getElementById("cuadrados");
-            var actores = "";
+            var actoress = " ";
             var idGenero = pelicula.genre_ids[0];
             //console.log(idGenero);
 
@@ -663,10 +704,15 @@ function cargarTendencias() {
               return response.json();
 
             }).then(respuesta => {
-              respuesta.cast.forEach(actor => {
-                actores += actor.name + "-" + actor.character + ",";
+              console.log(respuesta.status_code);
+              if(respuesta.status_code != undefined){
+                respuesta.cast.forEach(actor => {
 
-              });
+                  actoress += actor.name + "-" + actor.character + ",";
+
+                });
+              }
+
 
             }).then(() => {
               fetch(datosG).then(response => {
@@ -681,9 +727,9 @@ function cargarTendencias() {
                 });
 
               }).then(() => {
-                divD.innerHTML += portafolio(id, titulo, img, sinopsi, actores, lanzamiento, genero);;
+                divD.innerHTML += portafolio(id, titulo, img, sinopsi, actoress, lanzamiento, genero);;
 
-              })
+              });
             });
 
 
@@ -692,10 +738,12 @@ function cargarTendencias() {
 
         });
 
+        //////////////
       }
 
     }
   });
+
 }
 
 function borrarCookie() {
@@ -703,6 +751,10 @@ function borrarCookie() {
     url: 'js/eliminarCookie.php',
     success: function(data) {
       console.log('Cookie eliminada');
+      document.getElementById('cerrarSesion').disabled = true;
+      document.getElementById('MeGusta').disabled = true;
+      document.getElementById('iniciarSesion').disabled = false;
+      document.getElementById('saludo').innerText = "MAICFILMS";
     }
   });
 }

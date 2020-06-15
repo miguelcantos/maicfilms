@@ -2,7 +2,6 @@
 require_once 'baseDatos.php';
 
 //datos informacion
-
 $nombreUsu=$_POST['nombreUsu'];
 $pass=$_POST['password'];
 
@@ -11,9 +10,10 @@ $pass=$_POST['password'];
 $sql = "SELECT idUsu, nombre, nomUsu, password FROM usuarios WHERE nomUsu = '$nombreUsu' and password='$pass'";
 
 $result = mysqli_query($conn,$sql);
+$row = mysqli_fetch_array($result);
 
-  if($result){
-    $datoCookie= mysqli_fetch_array($result);
+  if($row != null){
+    $datoCookie= $row;
     $cookie_name="nombreCookie";
     $cookie_value = $datoCookie['nomUsu'];
     setcookie($cookie_name, $cookie_value, time() + (43200), "/");
