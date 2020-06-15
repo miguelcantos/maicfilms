@@ -18,7 +18,7 @@
   <!-- import css, js and jquery-->
   <link href="css/styles.css" rel="stylesheet" />
   <script src="js/scripts.js"></script>
-  <script src="jquery-3.5.1.min.js"></script>
+  <!-- <script src="jquery-3.5.1.min.js"></script> -->
 
 </head>
 

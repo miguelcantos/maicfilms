@@ -10,7 +10,6 @@ function init() {
   document.getElementById('MeGusta').addEventListener("click", favoritos);
   cargarTendencias();
   comprobarBotones();
-  console.log(getCookieValue("nombreCookie"));
 
 }
 
@@ -704,15 +703,12 @@ function cargarTendencias() {
               return response.json();
 
             }).then(respuesta => {
-              console.log(respuesta.status_code);
-              if(respuesta.status_code != undefined){
+
                 respuesta.cast.forEach(actor => {
 
                   actoress += actor.name + "-" + actor.character + ",";
 
                 });
-              }
-
 
             }).then(() => {
               fetch(datosG).then(response => {
