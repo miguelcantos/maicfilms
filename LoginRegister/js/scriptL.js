@@ -59,8 +59,8 @@ function consultas(){
                    email:email
               },
               success: function(resultado){
-                  console.log(resultado);
-                  if(resultado == "Nuevo usuario creado correctamente"){
+                  console.log(resultado.trim());
+                  if(resultado.trim() == "Nuevo usuario creado correctamente"){
                     location.reload();
                   }else{
                     alert("No te has registrado correctamente");
@@ -84,9 +84,9 @@ function consultas(){
                    password:password
               },
               success: function(resultado){
-                  console.log(resultado);
+                  console.log(resultado.trim());
 
-                  if(resultado == "Inicio de sesion correcto"){
+                  if(resultado.trim() == "Inicio de sesion correcto"){
                       location.replace("../index.php");
 
                   }else{
