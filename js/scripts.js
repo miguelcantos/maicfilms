@@ -751,6 +751,7 @@ function borrarCookie() {
       document.getElementById('MeGusta').disabled = true;
       document.getElementById('iniciarSesion').disabled = false;
       document.getElementById('saludo').innerText = "MAICFILMS";
+      location.reload();
     }
   });
 }
